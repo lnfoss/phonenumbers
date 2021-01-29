@@ -11,11 +11,8 @@ public class PhoneNumberFormatter {
     /*
     input [+][-|spc][cc][ddd|(ddd)][-|spc]<nnn-nnnn|nnn-nn-nn|nnnnnnn>
     output +cc (ddd) nnn-nnnn
-    default cc 7
-    default ddd 812
      */
 
-    static final String DEFAULT = "+7 (123) 123 456 ";
     static final String DEFAULT_OPERATOR = "+";
     static final String DEFAULT_CC = "7";
     static final String DEFAULT_CITY = "812";
@@ -38,7 +35,13 @@ public class PhoneNumberFormatter {
     }
 
     private static String toUnified(String number){
-        return number;
+        String str = number.replaceAll("[^0-9]", "");
+        switch (str.length()){
+            case 7 : return DEFAULT_OPERATOR + DEFAULT_CC + " ("+DEFAULT_CITY+") "+ str;
+            case 8 : return DEFAULT_OPERATOR + str.substring(0,1) + " ("+DEFAULT_CITY+") "+ str.substring(1,8);
+            case 10 :return  DEFAULT_OPERATOR + DEFAULT_CC +  " ("+str.substring(0,3)+") "+ str.substring(3,10);
+            case 11 :return  DEFAULT_OPERATOR + str.substring(0,1) +  " ("+str.substring(1,4)+") "+ str.substring(4,11);
+            default: return "INVALID";
+        }
     }
-
 }
