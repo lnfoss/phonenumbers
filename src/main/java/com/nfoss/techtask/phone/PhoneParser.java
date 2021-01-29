@@ -2,15 +2,12 @@ package com.nfoss.techtask.phone;
 
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -24,12 +21,10 @@ public class PhoneParser {
                  .filter(Files::isRegularFile)
                  .filter(this::isValidExtension)
                  .map(this::readFile)
-                 .filter(Objects::nonNull)
                  .flatMap(List::stream)
                  .distinct()
                  .sorted()
                  .forEach(System.out::println);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,7 +43,7 @@ public class PhoneParser {
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return Collections.emptyList();
         }
     }
     /*
