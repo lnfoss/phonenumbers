@@ -9,7 +9,9 @@ public class PhoneApplication {
     public static void main(String[] args) {
         SpringApplication.run(PhoneApplication.class, args);
         PhoneParser phoneParser = new PhoneParser();
-        phoneParser.printNumbers("./src/main/resources/files");
+        System.out.println("Looking for valid files...");
+        phoneParser.getFormattedNumbers("./src/main/resources/files/")
+        .forEach(System.out::println);
     }
 
 }
