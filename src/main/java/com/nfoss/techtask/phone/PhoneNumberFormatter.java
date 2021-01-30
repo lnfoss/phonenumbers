@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class PhoneNumberFormatter {
 
     /*
-    input [+][-|spc][cc][ddd|(ddd)][-|spc]<nnn-nnnn|nnn-nn-nn|nnnnnnn>
+    input [+cc|cc][-|s][ddd|(ddd)][-|s]<nnn-nnnn|nnn-nn-nn|nnnnnnn>
     output +cc (ddd) nnn-nnnn
      */
 
@@ -18,10 +18,7 @@ public class PhoneNumberFormatter {
 
 
     public static String formatNumber(String number) {
-        if (isValidNumber(number)){
-            return toUnified(number);
-        }
-        else return null;
+        return isValidNumber(number)? toUnified(number) : null;
     }
 
     private static boolean isValidNumber(String number) {
